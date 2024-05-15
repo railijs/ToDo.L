@@ -1,4 +1,4 @@
 <?php
 
 $title = "Error";
-require "views/404.view.php";
+require "../app/views/404.view.php";
