@@ -6,5 +6,6 @@ return [
     "/register" => "../app//controllers/auth/register.php",
     "/logout" => "../app/controllers/auth/logout.php",
     "/create" => "../app/controllers/create.php",
-    "/show" => "../app/controllers/create.php"
+    "/show" => "../app/controllers/show.php",
+    "/delete" => "../app/controllers/delete.php"
 ];

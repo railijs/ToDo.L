@@ -1,6 +1,6 @@
 <?php
 auth();
-require "../app/models/TaskModel.php";
+require "../app/models/Task.php";
 
 
 

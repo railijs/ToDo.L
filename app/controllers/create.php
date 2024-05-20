@@ -1,5 +1,5 @@
 <?php
-require "../app/models/TaskModel.php";
+require "../app/models/Task.php";
 require "../app/core/Validator.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
