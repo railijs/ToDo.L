@@ -1,5 +1,6 @@
 <?php
 guest();
+
 require "../app/core/Validator.php";
 require "../app/core/Database.php";
 require "../app/models/User.php";
@@ -13,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!Validator::email($_POST["email"])) {
         $errors["email"] = "Nepareiz epasta formāts";
     }
-    if (!Validator::password($_POST["password"])) {
+    if (!Validator::string($_POST["password"], min:4, max:20)) {
         $errors["password"] = "Parolē ir nepilnības";
     }
 

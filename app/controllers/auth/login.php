@@ -5,10 +5,10 @@ require "../app/core/Database.php";
 require "../app/models/User.php";
 $config = require("../config.php");
 
+$errors = [];
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $db = new Database($config);
-
-    $errors = [];
 
     if (!Validator::email($_POST["email"])) {
         $errors["email"] = "Nepareizi ievadits email";
@@ -35,8 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-
-unset($_SESSION["message"]);
 
 $title = "Login";
 require "../app/views/auth/login.view.php";
