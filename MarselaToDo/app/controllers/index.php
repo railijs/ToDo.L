@@ -1,0 +1,22 @@
+<?php
+
+auth();
+
+require "../app/models/Task.php";
+require "../app/models/Search.php";
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /login");
+    exit();
+}
+
+$taskModel = new TaskModel();
+$tasks = $taskModel->getTasksByUserId($_SESSION['user_id']);
+
+if(isset($_GET["query"]) && !empty(trim($_GET["query"]))) {
+    $searchModel = new SearchModel();
+    $searchResults = $searchModel->searchItems($_GET["query"]);
+}
+
+$title = "Tasks";
+require "../app/views/index.view.php";
