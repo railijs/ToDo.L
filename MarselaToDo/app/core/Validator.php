@@ -1,11 +1,8 @@
 <?php
 
 class Validator {
-
-        // pure method, tapec static
     static public function string($data, $min = 0,  $max = INF) {
         $data = trim($data);
-
         return is_string($data) 
         && strlen($data) >= $min
         && strlen($data) <= $max;  
@@ -13,7 +10,6 @@ class Validator {
 
     static public function number($data, $min = 0,  $max = INF) {
         $data = trim($data);
-
         return is_numeric($data) 
         && $data >= $min
         && $data <= $max;  
@@ -38,5 +34,15 @@ class Validator {
                preg_match($has_number, $data) &&
                preg_match($has_special, $data) &&
                !preg_match('/(.)\1{2,}/', $data);
+    }
+
+    static public function dateNotInPast($date) {
+        $currentDate = date('Y-m-d');
+        return $date >= $currentDate;
+    }
+
+    static public function emptyString($data, $min = 1, $max = INF) {
+        $data = trim($data); // Trim whitespace from the beginning and end
+        return is_string($data) && strlen($data) >= $min && strlen($data) <= $max && !empty($data);
     }
 }

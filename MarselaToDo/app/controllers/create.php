@@ -1,4 +1,6 @@
 <?php
+// No need to start session as it's already started elsewhere
+
 require "../app/models/Task.php";
 require "../app/core/Validator.php";
 
@@ -9,16 +11,30 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $taskModel = new TaskModel();
+$errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $errors = [];
+    // Validate form fields
+    if (empty($_POST["title"]) || empty($_POST["description"]) || empty($_POST["deadline"])) {
+        $errors["form"] = "All form fields are required.";
+    } else {
+        // Validate title
+        if (!Validator::string($_POST["title"], 1, 255)) {
+            $errors["title"] = "Title must be between 1 and 255 characters.";
+        }
+        
+        // Validate description
+        if (!Validator::string($_POST["description"], 1, 1000)) {
+            $errors["description"] = "Description must be between 1 and 1000 characters.";
+        }
+        
+        // Validate deadline
+        if (!Validator::dateNotInPast($_POST["deadline"])) {
+            $errors["deadline"] = "Deadline must be today or a future date.";
+        }
+    }
 
-    if (!Validator::string($_POST["title"], 1, 255)) {
-        $errors["title"] = "Title cannot be empty or too long!";
-    }
-    if (!Validator::string($_POST["description"], 1, 255)) {
-        $errors["description"] = "Description cannot be empty or too long!";
-    }
+    // If no errors, proceed with creating the task
     if (empty($errors)) {
         $title = $_POST['title'];
         $description = $_POST['description'];
@@ -26,8 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user_id = $_SESSION['user_id'];
 
         $taskModel->createTask($title, $user_id, $description, $deadline);
+        header("Location: /");
+        exit();
     }
-    header("Location: /");
 }
 
 // Fetch tasks for the logged-in user
