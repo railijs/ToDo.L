@@ -15,7 +15,14 @@ $tasks = $taskModel->getTasksByUserId($_SESSION['user_id']);
 
 if(isset($_GET["query"]) && !empty(trim($_GET["query"]))) {
     $searchModel = new SearchModel();
-    $searchResults = $searchModel->searchItems($_GET["query"]);
+    // Check if the search query has only one letter
+    if(strlen($_GET["query"]) === 1) {
+        // Search only tasks of the current user by one letter
+        $searchResults = $searchModel->searchItemsByFirstLetter($_GET["query"], $_SESSION['user_id']);
+    } else {
+        // Perform regular search
+        $searchResults = $searchModel->searchItems($_GET["query"]);
+    }
 }
 
 $title = "Tasks";
