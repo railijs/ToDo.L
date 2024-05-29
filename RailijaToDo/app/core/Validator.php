@@ -1,0 +1,48 @@
+<?php
+
+class Validator {
+    static public function string($data, $min = 0,  $max = INF) {
+        $data = trim($data);
+        return is_string($data) 
+        && strlen($data) >= $min
+        && strlen($data) <= $max;  
+    }
+
+    static public function number($data, $min = 0,  $max = INF) {
+        $data = trim($data);
+        return is_numeric($data) 
+        && $data >= $min
+        && $data <= $max;  
+    }
+
+    static public function email($data) {
+        return filter_var($data, FILTER_VALIDATE_EMAIL);
+    }
+
+    static public function password($data) {
+        $min_length = 8;
+        $allowed_special_chars = '$&+,:;=?@#|\'<>.^*()%!-';
+    
+        $has_uppercase = '/[A-Z]/';
+        $has_lowercase = '/[a-z]/';
+        $has_number = '/[0-9]/';
+        $has_special = '/[' . preg_quote($allowed_special_chars, '/') . ']/';
+    
+        return strlen($data) >= $min_length &&
+               preg_match($has_uppercase, $data) &&
+               preg_match($has_lowercase, $data) &&
+               preg_match($has_number, $data) &&
+               preg_match($has_special, $data) &&
+               !preg_match('/(.)\1{2,}/', $data);
+    }
+
+    static public function dateNotInPast($date) {
+        $currentDate = date('Y-m-d');
+        return $date >= $currentDate;
+    }
+
+    static public function emptyString($data, $min = 1, $max = INF) {
+        $data = trim($data); // Trim whitespace from the beginning and end
+        return is_string($data) && strlen($data) >= $min && strlen($data) <= $max && !empty($data);
+    }
+}
