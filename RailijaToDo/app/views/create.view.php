@@ -31,6 +31,19 @@
           <p class="text-red-500 text-sm"><?= $errors["deadline"] ?></p>
         <?php } ?>
       </div>
+      
+      <!-- Priority Selection -->
+      <div class="mb-4">
+        <label for="priority" class="block text-gray-700 text-sm font-semibold mb-2">Priority</label>
+        <select id="priority" name="priority" class="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500">
+          <option value="1">⭐</option>
+          <option value="2">⭐⭐</option>
+          <option value="3">⭐⭐⭐</option>
+          <option value="4">⭐⭐⭐⭐</option>
+          <option value="5">⭐⭐⭐⭐⭐</option>
+        </select>
+      </div>
+      
       <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Create</button>
     </form>
   </div>

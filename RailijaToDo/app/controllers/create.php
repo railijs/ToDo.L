@@ -15,7 +15,7 @@ $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate form fields
-    if (empty($_POST["title"]) || empty($_POST["description"]) || empty($_POST["deadline"])) {
+    if (empty($_POST["title"]) || empty($_POST["description"]) || empty($_POST["deadline"]) || empty($_POST["priority"])) {
         $errors["form"] = "All form fields are required.";
     } else {
         // Validate title
@@ -32,6 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!Validator::dateNotInPast($_POST["deadline"])) {
             $errors["deadline"] = "Deadline must be today or a future date.";
         }
+        
+        // Validate priority
+        if (!Validator::number($_POST["priority"], 1, 5)) {
+            $errors["priority"] = "Priority must be a number between 1 and 5.";
+        }
     }
 
     // If no errors, proceed with creating the task
@@ -39,9 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $title = $_POST['title'];
         $description = $_POST['description'];
         $deadline = $_POST['deadline'];
+        $priority = $_POST['priority'];
         $user_id = $_SESSION['user_id'];
 
-        $taskModel->createTask($title, $user_id, $description, $deadline);
+        $taskModel->createTask($title, $user_id, $description, $deadline, $priority);
         header("Location: /");
         exit();
     }
@@ -52,3 +58,4 @@ $tasks = $taskModel->getTasksByUserId($_SESSION['user_id']);
 
 $title = "Create a task";
 require "../app/views/create.view.php";
+?>

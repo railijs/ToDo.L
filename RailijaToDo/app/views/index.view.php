@@ -20,6 +20,13 @@
               <h3 class="font-semibold text-lg"><?= htmlspecialchars($task->title) ?></h3>
               <p class="text-gray-600 mt-2"><?= htmlspecialchars($task->description) ?></p>
               <p class="text-gray-600 mt-2">Deadline: <?= htmlspecialchars($task->deadline) ?></p>
+              <!-- Display priority as star emojis -->
+              <p class="text-gray-600 mt-2">Priority:
+                <?php 
+                  $priorityStars = str_repeat('⭐️', $task->priority);
+                  echo htmlspecialchars($priorityStars);
+                ?>
+              </p>
             </div>
             <div class="flex items-center space-x-4">
               <a href="/show?id=<?= $task->id ?>" class="text-blue-600 hover:underline">Show</a>
