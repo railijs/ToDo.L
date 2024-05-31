@@ -2,6 +2,7 @@
 
 auth();
 
+
 require "../app/models/Task.php";
 require "../app/models/Search.php";
 
@@ -24,6 +25,12 @@ if(isset($_GET["query"]) && !empty(trim($_GET["query"]))) {
         $searchResults = $searchModel->searchItems($_GET["query"]);
     }
 }
+
+$task = new TaskModel();
+
+// Get all tasks from the database
+$tasks = $task->getAllTasks();
+
 
 $title = "Tasks";
 require "../app/views/index.view.php";

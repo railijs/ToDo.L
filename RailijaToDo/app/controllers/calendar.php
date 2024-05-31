@@ -1,41 +1,26 @@
 <?php
 
-class CalendarController {
-    private $taskService;
+auth();
 
-    public function __construct($dbConnection) {
-        $this->taskService = new TaskService($dbConnection); // Izveidojam TaskService objektu ar datu bāzes savienojumu
-    }
+require "../app/models/Calendar.php";
+require "../app/models/Search.php";
 
-    public function getMonthlyTasks($year, $month) {
-        try {
-            $tasks = $this->taskService->getTasksByMonth($year, $month);
-            return $tasks;
-        } catch (Exception $e) {
-            error_log("Error fetching monthly tasks: " . $e->getMessage());
-            throw $e;
-        }
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /login");
+    exit();
+}
+
+$taskModel = new TaskModel();
+$tasks = $taskModel->getTasksByUserId($_SESSION['user_id']);
+
+if (isset($_GET["query"]) && !empty(trim($_GET["query"]))) {
+    $searchModel = new SearchModel();
+    if (strlen($_GET["query"]) === 1) {
+        $searchResults = $searchModel->searchItemsByFirstLetter($_GET["query"], $_SESSION['user_id']);
+    } else {
+        $searchResults = $searchModel->searchItems($_GET["query"]);
     }
 }
 
-class TaskService {
-    private $dbConnection;
-
-    public function __construct($dbConnection) {
-        $this->dbConnection = $dbConnection;
-    }
-
-    public function getTasksByMonth($year, $month) {
-        $startDate = "$year-$month-01";
-        $endDate = date("Y-m-t", strtotime($startDate));
-
-        $query = $this->dbConnection->prepare("SELECT * FROM tasks WHERE deadline BETWEEN :startDate AND :endDate");
-        $query->bindParam(':startDate', $startDate);
-        $query->bindParam(':endDate', $endDate);
-        $query->execute();
-
-        return $query->fetchAll(PDO::FETCH_ASSOC);
-    }
-}
-$title = "Calendar";
+$title = "Tasks";
 require "../app/views/calendar.view.php";
