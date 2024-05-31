@@ -9,11 +9,11 @@ class Database {
     private $dbh;
     private $stmt;
     private $error;
-    private  $config;
+    private $config;
 
     public function __construct(){
         // Fetch database configuration
-       $this->config = require "../app/config.php";
+        $this->config = require "../app/config.php";
         // Set database connection parameters
         $this->host = $this->config['host'];
         $this->user = $this->config['user'];
@@ -80,5 +80,11 @@ class Database {
 
     public function lastId(){
         return $this->dbh->lastInsertId();
+    }
+
+    // Fetch a single column count result
+    public function fetchColumn(){
+        $this->execute();
+        return $this->stmt->fetchColumn();
     }
 }

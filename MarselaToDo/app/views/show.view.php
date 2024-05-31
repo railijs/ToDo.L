@@ -7,6 +7,8 @@
             <h2 class="text-2xl font-semibold mb-4"><?= htmlspecialchars($task->title); ?></h2>
             <p class="text-gray-700 mb-2">Description: <?= htmlspecialchars($task->description); ?></p>
             <p class="text-gray-700 mb-2">Deadline: <?= htmlspecialchars($task->deadline); ?></p>
+            <!-- Display priority as star emojis -->
+            <p class="text-gray-700 mb-2">Priority: <?= str_repeat('⭐️', $task->priority); ?></p>
             <a href="/" class="text-blue-600 hover:underline">Back to Tasks</a>
         <?php else: ?>
             <h2 class="text-2xl font-semibold mb-4">Task not found</h2>

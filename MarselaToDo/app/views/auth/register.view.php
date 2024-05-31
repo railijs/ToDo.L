@@ -21,6 +21,13 @@ require "../app/views/components/header.php";
             <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password <span class="text-sm text-gray-600">(must be at least 8 characters long, containing at least 1 uppercase, 1 lowercase, 1 digit, and 1 special character)</span>:</label>
             <input type="password" id="password" name="password" class="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500" required>
         </div>
+        <div>
+            <label for="confirm_password" class="block text-gray-700 text-sm font-semibold mb-2">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" class="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500" required>
+            <?php if(isset($errors["confirm_password"])) {?>
+                <span style="color: red;"><?php echo $errors["confirm_password"]; ?></span>
+            <?php } ?>
+        </div>
         <div class="flex items-center justify-between mb-6">
             <a href="/login" class="text-sm text-blue-600 hover:underline">Already have an account?</a>
         </div>

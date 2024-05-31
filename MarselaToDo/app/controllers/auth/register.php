@@ -16,6 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!Validator::password($_POST["password"])) {
         $errors["password"] = "Parolē ir nepilnības";
     }
+    if ($_POST["password"] !== $_POST["confirm_password"]) {
+        $errors["confirm_password"] = "Paroles nesakrīt";
+    }
 
     $userModel = new User();
 
@@ -31,15 +34,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($registered) {
             // Registration successful
             echo "User registered successfully!";
+            header("Location: /login");
+            die();
         } else {
             // Registration failed
             echo "User registration failed!";
         }
-        header("Location: /login");
-        die();
     }
 }
-
 
 $title = "Register";
 require "../app/views/auth/register.view.php";
