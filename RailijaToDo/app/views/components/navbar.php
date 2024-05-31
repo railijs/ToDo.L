@@ -9,10 +9,10 @@
         </div>
 
         <?php if (isset($_SESSION["email"])): ?>
-            <div class="flex items-center space-x-4">
-                <span class="text-white text-lg">Welcome, <?= htmlspecialchars($_SESSION["email"]) ?></span>
-                <form method="POST" action="/logout">
-                    <button type="submit" class="text-white text-lg font-semibold">Log Out</button>
+            <div class="relative flex items-center space-x-4">
+                <span id="user-email" class="text-white text-lg cursor-pointer hover:text-blue-300 transition duration-500 bg-gray-700 px-2 py-1 rounded">Welcome, <?= htmlspecialchars($_SESSION["email"]) ?></span>
+                <form id="logout-form" method="POST" action="/logout" class="hidden absolute top-full mt-2 transition duration-500">
+                    <button type="submit" class="text-white text-lg font-semibold bg-gray-700 py-2 px-4 rounded">Log Out</button>
                 </form>
             </div>
         <?php else: ?>
@@ -21,5 +21,6 @@
     </nav>
 </header>
 
+<script src="../public/js/nav.js"></script>
 
 <?php require "../app/views/components/footer.php" ?>

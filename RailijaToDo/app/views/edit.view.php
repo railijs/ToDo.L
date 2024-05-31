@@ -19,6 +19,18 @@
                 <label for="deadline" class="text-gray-500 text-sm font-semibold">Deadline:</label>
                 <input type="date" id="deadline" name="deadline" class="border-gray-200 border rounded py-2 px-4 w-full" value="<?= htmlspecialchars($taskDetails->deadline ?? '', ENT_QUOTES, 'UTF-8') ?>">
             </div>
+            <!-- Priority Selection -->
+            <div class="mb-4">
+                <label for="priority" class="block text-gray-700 text-sm font-semibold mb-2">Priority</label>
+                <select id="priority" name="priority" class="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500">
+                    <option value="1">⭐</option>
+                    <option value="2">⭐⭐</option>
+                    <option value="3">⭐⭐⭐</option>
+                    <option value="4">⭐⭐⭐⭐</option>
+                    <option value="5">⭐⭐⭐⭐⭐</option>
+                </select>
+            </div>
+            <!-- End of Priority Selection -->
             <button type="submit" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Update Task</button>
         </form>
     </div>

@@ -1,84 +1,95 @@
 <?php require "../app/views/components/header.php" ?>
 <?php require "../app/views/components/navbar.php" ?>
 
-<body class="bg-gray-100 flex justify-center items-center min-h-screen">
-    <div id="calendar" class="bg-white p-6 rounded-lg shadow-md w-full max-w-4xl">
-        <div id="calendar-header" class="flex justify-between items-center mb-4">
-            <button id="prev-month" class="bg-blue-500 text-white px-4 py-2 rounded">Previous</button>
-            <h2 id="month-year" class="text-xl font-bold"></h2>
-            <button id="next-month" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
-        </div>
-        <div id="calendar-body" class="grid grid-cols-7 gap-2">
-            <div class="text-center font-bold">Sun</div>
-            <div class="text-center font-bold">Mon</div>
-            <div class="text-center font-bold">Tue</div>
-            <div class="text-center font-bold">Wed</div>
-            <div class="text-center font-bold">Thu</div>
-            <div class="text-center font-bold">Fri</div>
-            <div class="text-center font-bold">Sat</div>
-            <div id="calendar-days" class="grid grid-cols-7 gap-2 mt-2"></div>
-        </div>
+<div class="flex items-center justify-center min-h-screen bg-cover bg-center" style="background-image: url('iphone-background.jpg');">
+  <div class="bg-white p-8 rounded-lg shadow-md w-full md:w-3/4 lg:w-2/3 xl:w-1/2">
+    <!-- Navigation -->
+    <div class="flex justify-between mb-4">
+  <button onclick="changeMonth(-1, <?= $currentDate ?>)" class="text-gray-600 hover:text-gray-900">&lt; Prev Month</button>
+  <h1 class="text-3xl font-bold text-center">
+    <?= date('F Y', $currentDate) ?>
+  </h1>
+  <button onclick="changeMonth(1, <?= $currentDate ?>)" class="text-gray-600 hover:text-gray-900">Next Month &gt;</button>
+</div>
+
+    <!-- Display tasks -->
+    <div class="overflow-auto max-h-96">
+      <div class="mt-8 grid grid-cols-7 gap-4">
+        <?php 
+        // Initialize an empty array to store tasks indexed by date
+        $tasksByDate = [];
+
+        // Group tasks by date
+        foreach ($tasks as $task) {
+            $taskDate = date('Y-m-d', strtotime($task->deadline));
+            $tasksByDate[$taskDate][] = $task;
+        }
+
+        // Loop through dates for the current month
+        $daysInMonth = date('t', $currentDate);
+        $currentDay = strtotime(date('Y-m-01', $currentDate));
+        for ($i = 1; $i <= $daysInMonth; $i++) {
+            $currentDateFormatted = date('Y-m-d', $currentDay);
+            ?>
+            <div class="border border-gray-300 p-2">
+              <h2 class="text-lg font-semibold mb-2"><?= date('M d', $currentDay) ?></h2>
+              <ul>
+                <?php 
+                // Check if there are tasks for this date
+                if (isset($tasksByDate[$currentDateFormatted])) {
+                    foreach ($tasksByDate[$currentDateFormatted] as $task) {
+                        ?>
+                        <li class="mb-4">
+                          <h3 class="font-semibold"><?= htmlspecialchars($task->title) ?></h3>
+                          <p class="text-gray-600 mt-2"><?= htmlspecialchars($task->description) ?></p>
+                          <p class="text-gray-600 mt-2">Deadline: <?= htmlspecialchars($task->deadline) ?></p>
+                          <!-- Display priority as star emojis -->
+                          <p class="text-gray-600 mt-2">Priority:
+                            <?= str_repeat('⭐️', $task->priority) ?>
+                          </p>
+                          <div class="flex items-center space-x-4 mt-2">
+                            <a href="/show?id=<?= $task->id ?>" class="text-blue-600 hover:underline">Show</a>
+                            <form action="/delete" method="POST">
+                              <input type="hidden" name="id" value="<?= $task->id ?>">
+                              <button type="submit" class="text-red-600 hover:underline">Delete</button>
+                            </form>
+                          </div>
+                        </li>
+                    <?php }
+                } else {
+                    echo "<p>No tasks for this date</p>";
+                }
+                ?>
+              </ul>
+            </div>
+            <?php 
+            // Move to the next day
+            $currentDay = strtotime('+1 day', $currentDay);
+        }
+        ?>
+      </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const tasks = <?php echo json_encode($tasks); ?>;
+    <!-- Output search results if available -->
+    <?php if (isset($searchResults)) { ?>
+      <?php if (!empty($searchResults)) { ?>
+        <h2 class="text-3xl font-bold mt-8 mb-6 text-center">Search Results</h2>
+        <ul>
+          <?php foreach ($searchResults as $result) { ?>
+            <li class="mb-8 border-b pb-4">
+              <h3 class="font-semibold text-lg"><?= htmlspecialchars($result->title) ?></h3>
+              <p class="text-gray-600 mt-2"><?= htmlspecialchars($result->description) ?></p>
+            </li>
+          <?php } ?>
+        </ul>
+      <?php } else { ?>
+        <p class="text-center mt-8">No tasks found matching the search criteria.</p>
+      <?php } ?>
+    <?php } ?>
 
-            let currentDate = new Date();
+  </div>
+</div>
 
-            function renderCalendar(year, month) {
-                const calendarDays = document.getElementById('calendar-days');
-                calendarDays.innerHTML = '';
-
-                const firstDayOfMonth = new Date(year, month - 1, 1).getDay();
-                const daysInMonth = new Date(year, month, 0).getDate();
-
-                for (let i = 0; i < firstDayOfMonth; i++) {
-                    const emptyCell = document.createElement('div');
-                    emptyCell.classList.add('h-20', 'border');
-                    calendarDays.appendChild(emptyCell);
-                }
-
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const dayCell = document.createElement('div');
-                    dayCell.classList.add('h-20', 'border', 'relative', 'p-2');
-                    dayCell.textContent = day;
-
-                    const taskForDay = tasks.filter(task => new Date(task.deadline).getDate() === day && new Date(task.deadline).getMonth() + 1 === month && new Date(task.deadline).getFullYear() === year);
-
-                    if (taskForDay.length > 0) {
-                        const taskList = document.createElement('ul');
-                        taskForDay.forEach(task => {
-                            const taskItem = document.createElement('li');
-                            taskItem.textContent = task.name;
-                            taskItem.classList.add('bg-blue-100', 'rounded', 'px-1', 'mt-1', 'text-sm');
-                            taskList.appendChild(taskItem);
-                        });
-                        dayCell.appendChild(taskList);
-                    } else {
-                        // If there are no tasks for the day, still append an empty cell
-                        dayCell.innerHTML = '&nbsp;'; // Add a non-breaking space
-                    }
-
-                    calendarDays.appendChild(dayCell);
-                }
-
-                document.getElementById('month-year').textContent = `${year}-${month}`;
-            }
-
-            document.getElementById('prev-month').addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() - 1);
-                renderCalendar(currentDate.getFullYear(), currentDate.getMonth() + 1);
-            });
-
-            document.getElementById('next-month').addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() + 1);
-                renderCalendar(currentDate.getFullYear(), currentDate.getMonth() + 1);
-            });
-
-            renderCalendar(currentDate.getFullYear(), currentDate.getMonth() + 1);
-        });
-    </script>
-
+<script src="../public/js/calendar.js"></script>
 
 <?php require "../app/views/components/footer.php" ?>
