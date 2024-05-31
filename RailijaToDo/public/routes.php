@@ -9,5 +9,6 @@ return [
     "/delete" => "../app/controllers/delete.php",
     "/show" => "../app/controllers/show.php",
     "/search" => "../app/controllers/search.php",
-    "/edit" => "../app/controllers/edit.php"
+    "/edit" => "../app/controllers/edit.php",
+    "/calendar" => "../app/controllers/calendar.php"
 ];

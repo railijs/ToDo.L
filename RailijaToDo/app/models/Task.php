@@ -56,12 +56,14 @@ class TaskModel {
         return $this->db->execute();
     }
 
-    public function updateTask($task_id, $title, $description, $deadline) {
-        $this->db->query("UPDATE tasks SET title = ?, description = ?, deadline = ? WHERE id = ?");
-        $this->db->bind(1, $title);
-        $this->db->bind(2, $description);
-        $this->db->bind(3, $deadline);
-        $this->db->bind(4, $task_id);
+    public function updateTask($task_id, $title, $description, $deadline, $priority) {
+        $sql = "UPDATE tasks SET title = :title, description = :description, deadline = :deadline, priority = :priority WHERE id = :task_id";
+        $this->db->query($sql);
+        $this->db->bind(':title', $title);
+        $this->db->bind(':description', $description);
+        $this->db->bind(':deadline', $deadline);
+        $this->db->bind(':priority', $priority);
+        $this->db->bind(':task_id', $task_id);
         return $this->db->execute();
     }
 }

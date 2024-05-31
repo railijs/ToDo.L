@@ -53,7 +53,7 @@ if(isset($_GET['query']) && !empty($_GET['query'])) {
                             <a href="/edit?task_id=<?= $task->id ?>" class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded transition-all duration-10 focus:outline-none focus:bg-green-800">Edit</a
                             <form action="/delete" method="POST">
                                 <input type="hidden" name="id" value="<?= $task->id ?>">
-                                <button type="submit" class="appearance-none bg-white border-none rounded-full shadow-inner text-black px-4 py-2 text-lg font-semibold transition duration-150 ease-in-out hover:bg-yellow-400 hover:text-black">Delete</button>
+                                <button type="submit" class="appearance-none bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded transition-all duration-10 focus:outline-none focus:bg-red-800">Delete</button>
                             </form>
                         </div>
                     </li>

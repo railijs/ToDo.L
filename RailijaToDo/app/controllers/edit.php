@@ -13,14 +13,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['task_id'])) {
 }
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['task_id'], $_POST['title'], $_POST['description'], $_POST['deadline'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['task_id'], $_POST['title'], $_POST['description'], $_POST['deadline'], $_POST['priority'])) {
     $task_id = $_POST['task_id'];
     $title = $_POST['title'];
     $description = $_POST['description'];
     $deadline = $_POST['deadline'];
+    $priority = $_POST['priority'];
 
     // Assuming you have a method to update task details in the TaskModel class
-    $success = $taskModel->updateTask($task_id, $title, $description, $deadline);
+    $success = $taskModel->updateTask($task_id, $title, $description, $deadline, $priority);
 
     if ($success) {
         header("Location: /"); // Redirect to the homepage or wherever appropriate
