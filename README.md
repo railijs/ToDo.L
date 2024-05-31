@@ -17,6 +17,7 @@ What has been done:
                   4. Created a show for viewing one task and added a delete function
                   5. Added when you are loged in you only see the tasks you have created
                   6. Created a search bar
+                  7. Added validation for register, login and create
 
 Still in progress:
 
