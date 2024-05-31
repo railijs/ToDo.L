@@ -1,8 +1,8 @@
 <?php
 guest();
-require "../app/core/Validator.php";
-require "../app/core/Database.php";
-require "../app/models/User.php";
+require_once "../app/core/Validator.php";
+require_once "../app/core/Database.php";
+require_once "../app/models/User.php";
 $config = require("../app/config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -10,30 +10,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $errors = [];
 
+    // Validate email format
     if (!Validator::email($_POST["email"])) {
         $errors["email"] = "Invalid email format.";
     }
 
-    if (empty($errors)) {
-        // Create a new instance of the User model
-        $userModel = new User();
+    // Check if email exists
+    if (empty($errors) && !Validator::emailExists($_POST["email"])) {
+        $errors["email"] = "Email does not exist.";
+    }
 
-        // Attempt to log in the user
+    // Validate password format
+    if (!Validator::password($_POST["password"])) {
+        $errors["password"] = "Invalid password format.";
+    }
+
+    // Attempt to log in the user if there are no validation errors
+    if (empty($errors)) {
+        $userModel = new User();
         $loggedInUser = $userModel->login($_POST["email"], $_POST["password"]);
 
         if ($loggedInUser) {
             // Set session variables
             $_SESSION["user"] = true;
             $_SESSION["email"] = $_POST["email"];
-
-            // Retrieve the user's ID and store it in the session
-            $user = $userModel->findUserByEmail($_POST["email"]);
-            $_SESSION["user_id"] = $user->id;
+            $_SESSION["user_id"] = $loggedInUser->id;
 
             // Login successful
             header("Location: /");
             exit();
-            
         } else {
             // Login failed
             $errors["email"] = "Password or email does not match.";
