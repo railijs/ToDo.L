@@ -32,6 +32,7 @@ if(isset($_GET['query']) && !empty($_GET['query'])) {
         </form>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     <!-- Display tasks -->
     <?php if (isset($tasks) && !empty($tasks)) { ?>
       <ul class="mt-8">
@@ -74,6 +75,8 @@ if(isset($_GET['query']) && !empty($_GET['query'])) {
             </div>
           </li>
 =======
+=======
+>>>>>>> b7455c5c1e91e81b1ef482d6540d1b0e78629759
         <!-- Display tasks -->
         <?php if (isset($searchResults) && !empty($searchResults)) { ?>
             <ul class="mt-8">
@@ -93,7 +96,11 @@ if(isset($_GET['query']) && !empty($_GET['query'])) {
                         </div>
                         <div class="flex items-center space-x-4">
                             <a href="/show?id=<?= $task->id ?>" class="text-blue-600 hover:underline">Show</a>
+<<<<<<< HEAD
                             <a href="/edit?task_id=<?= $task->id ?>" class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded transition-all duration-10 focus:outline-none focus:bg-green-800">Edit</a
+=======
+                            <a href="/edit?task_id=<?= $task->id ?>" class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded transition-all duration-10 focus:outline-none focus:bg-green-800">Edit</a>
+>>>>>>> b7455c5c1e91e81b1ef482d6540d1b0e78629759
                             <form action="/delete" method="POST">
                                 <input type="hidden" name="id" value="<?= $task->id ?>">
                                 <button type="submit" class="appearance-none bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded transition-all duration-10 focus:outline-none focus:bg-red-800">Delete</button>
@@ -106,162 +113,13 @@ if(isset($_GET['query']) && !empty($_GET['query'])) {
             <p class="text-center mt-8">No tasks were found matching the search criteria.</p>
         <?php } else { ?>
             <p class="text-center mt-8">You have no tasks.</p>
+<<<<<<< HEAD
 >>>>>>> 7e199f516a2769f5956b25dca3ee0c2a39ca32a1
+=======
+>>>>>>> b7455c5c1e91e81b1ef482d6540d1b0e78629759
         <?php } ?>
 
     </div>
 </div>
 
 <?php require "../app/views/components/footer.php" ?>
-<style>
-.btn {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: rgb(20, 20, 20);
-  border: none;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 0px 0px 4px rgba(180, 160, 255, 0.253);
-  cursor: pointer;
-  transition-duration: 0.3s;
-  overflow: hidden;
-  position: relative;
-}
-
-.svgIcon {
-  width: 12px;
-  transition-duration: 0.3s;
-}
-
-.svgIcon path {
-  fill: white;
-}
-
-.btn:hover {
-  width: 140px;
-  border-radius: 50px;
-  transition-duration: 0.3s;
-  background-color: rgb(181, 160, 255);
-  align-items: center;
-}
-
-.btn:hover .svgIcon {
-  /* width: 20px; */
-  transition-duration: 0.3s;
-  transform: translateY(-200%);
-}
-
-.btn::before {
-  position: absolute;
-  bottom: -20px;
-  content: "SHOW";
-  color: white;
-  /* transition-duration: .3s; */
-  font-size: 0px;
-}
-
-.btn:hover::before {
-  font-size: 13px;
-  opacity: 1;
-  bottom: unset;
-  /* transform: translateY(-30px); */
-  transition-duration: 0.3s;
-}
-
-.button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: rgb(20, 20, 20);
-  border: none;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
-  cursor: pointer;
-  transition-duration: .3s;
-  overflow: hidden;
-  position: relative;
-}
-
-.svgIcon {
-  width: 12px;
-  transition-duration: .3s;
-}
-
-.svgIcon path {
-  fill: white;
-}
-
-.button:hover {
-  width: 140px;
-  border-radius: 50px;
-  transition-duration: .3s;
-  background-color: rgb(255, 69, 69);
-  align-items: center;
-}
-
-.button:hover .svgIcon {
-  width: 50px;
-  transition-duration: .3s;
-  transform: translateY(60%);
-}
-
-.button::before {
-  position: absolute;
-  top: -20px;
-  content: "Delete";
-  color: white;
-  transition-duration: .3s;
-  font-size: 2px;
-}
-
-.button:hover::before {
-  font-size: 13px;
-  opacity: 1;
-  transform: translateY(30px);
-  transition-duration: .3s;
-}
-.checkbox-wrapper *,
-  .checkbox-wrapper *::before,
-  .checkbox-wrapper *::after {
-  box-sizing: border-box;
-}
-
-.checkbox-wrapper label {
-  display: block;
-  width: 35px;
-  height: 35px;
-  cursor: pointer;
-}
-
-.checkbox-wrapper input {
-  visibility: hidden;
-  display: none;
-}
-
-.checkbox-wrapper input:checked ~ .checkbox {
-  transform: rotate(45deg);
-  width: 14px;
-  margin-left: 12px;
-  border-color: #000000;
-  border-top-color: transparent;
-  border-left-color: transparent;
-  border-radius: 0;
-}
-
-.checkbox-wrapper .checkbox {
-  display: block;
-  width: inherit;
-  height: inherit;
-  border: 3px solid #434343;
-  border-radius: 6px;
-  transition: all 0.375s;
-}
-
-
-</style>
