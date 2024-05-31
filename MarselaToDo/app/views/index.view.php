@@ -5,15 +5,20 @@ require "../app/views/components/navbar.php";
 // Assuming $tasks is your original tasks array
 
 // Check if a search query is provided
-if(isset($_GET['query']) && !empty($_GET['query'])) {
+if(isset($_GET['query'])) {
     $searchQuery = $_GET['query'];
-    $searchResults = array_filter($tasks, function($task) use ($searchQuery) {
-        return strpos(strtolower($task->title), strtolower($searchQuery)) !== false 
-            || strpos(strtolower($task->description), strtolower($searchQuery)) !== false;
-    });
+    if(!empty($searchQuery)) {
+        $searchResults = array_filter($tasks, function($task) use ($searchQuery) {
+            return strpos(strtolower($task->title), strtolower($searchQuery)) !== false 
+                || strpos(strtolower($task->description), strtolower($searchQuery)) !== false;
+        });
 
-    if(empty($searchResults)) {
-        $noTasksFound = true;
+        if(empty($searchResults)) {
+            $noTasksFound = true;
+        }
+    } else {
+        // If search query is empty, display all tasks
+        $searchResults = $tasks;
     }
 } else {
     // If no search query is provided, display all tasks
@@ -27,7 +32,7 @@ if(isset($_GET['query']) && !empty($_GET['query'])) {
 
         <!-- Search Bar -->
         <form action="/" method="GET" class="mt-6 flex">
-            <input type="text" name="query" placeholder="Search for tasks..." class="border border-gray-300 rounded-md px-4 py-2 w-full mr-2" required>
+            <input type="text" name="query" placeholder="Search for tasks..." class="border border-gray-300 rounded-md px-4 py-2 w-full mr-2" value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
             <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-md">Search</button>
         </form>
 
