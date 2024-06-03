@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $taskModel = new TaskModel();
-$tasks = $taskModel->getTasksByUserId($_SESSION['user_id']);
+$tasks = $taskModel->getTasksSortedByPriority(); // Change this line to get tasks sorted by priority
 
 if(isset($_GET["query"]) && !empty(trim($_GET["query"]))) {
     $searchModel = new SearchModel();

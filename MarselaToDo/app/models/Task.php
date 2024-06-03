@@ -66,4 +66,9 @@ class TaskModel {
         $this->db->bind(':task_id', $task_id);
         return $this->db->execute();
     }
+
+    public function getTasksSortedByPriority() {
+        $this->db->query('SELECT * FROM tasks ORDER BY priority DESC');
+        return $this->db->resultSet();
+    }
 }
