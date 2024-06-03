@@ -1,16 +1,22 @@
-<?php require "../app/views/components/header.php" ?>
-<?php require "../app/views/components/navbar.php" ?>
+<?php 
+// Set the current date based on user interaction, default to the current month
+$currentDate = isset($_GET['date']) ? strtotime($_GET['date']) : time();
+$tasks = isset($tasks) ? $tasks : []; // Default to an empty array if not set
+
+require "../app/views/components/header.php"; 
+?>
+<?php require "../app/views/components/navbar.php"; ?>
 
 <div class="flex items-center justify-center min-h-screen bg-cover bg-center" style="background-image: url('iphone-background.jpg');">
   <div class="bg-white p-8 rounded-lg shadow-md w-full md:w-3/4 lg:w-2/3 xl:w-1/2">
     <!-- Navigation -->
     <div class="flex justify-between mb-4">
-  <button onclick="changeMonth(-1, <?= $currentDate ?>)" class="text-gray-600 hover:text-gray-900">&lt; Prev Month</button>
-  <h1 class="text-3xl font-bold text-center">
-    <?= date('F Y', $currentDate) ?>
-  </h1>
-  <button onclick="changeMonth(1, <?= $currentDate ?>)" class="text-gray-600 hover:text-gray-900">Next Month &gt;</button>
-</div>
+      <button onclick="changeMonth(-1)" class="text-gray-600 hover:text-gray-900">&lt; Prev Month</button>
+      <h1 class="text-3xl font-bold text-center">
+        <?= date('F Y', $currentDate) ?>
+      </h1>
+      <button onclick="changeMonth(1)" class="text-gray-600 hover:text-gray-900">Next Month &gt;</button>
+    </div>
 
     <!-- Display tasks -->
     <div class="overflow-auto max-h-96">
@@ -90,6 +96,13 @@
   </div>
 </div>
 
-<script src="../public/js/calendar.js"></script>
+<script>
+function changeMonth(offset) {
+  const currentDate = new Date(<?= json_encode(date('Y-m-d', $currentDate)) ?>);
+  currentDate.setMonth(currentDate.getMonth() + offset);
+  const newDate = currentDate.toISOString().split('T')[0];
+  window.location.href = `?date=${newDate}`;
+}
+</script>
 
-<?php require "../app/views/components/footer.php" ?>
+<?php require "../app/views/components/footer.php"; ?>

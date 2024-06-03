@@ -6,7 +6,7 @@ class TaskModel {
         $host = 'localhost';
         $dbname = 'todo';
         $username = 'root';
-        $password = '';
+        $password = 'root';
 
         $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
 
@@ -26,12 +26,17 @@ class TaskModel {
     public function getTasksByUserId($userId) {
         $db = $this->getDatabaseConnection();
 
-        $query = $db->prepare("SELECT * FROM tasks WHERE user_id = :user_id ORDER BY deadline ASC");
-        $query->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $query->execute();
-
-        return $query->fetchAll(PDO::FETCH_OBJ);
+        try {
+            $query = $db->prepare("SELECT * FROM tasks WHERE user_id = :user_id ORDER BY deadline ASC");
+            $query->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_OBJ);
+        } catch(PDOException $e) {
+            // Handle query errors gracefully
+            echo "Query failed: " . $e->getMessage();
+            return [];
+        }
     }
 
     // Other methods...
-} 
+}
