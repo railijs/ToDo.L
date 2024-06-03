@@ -18,8 +18,8 @@ What has been done:
                   5. Added when you are loged in you only see the tasks you have created
                   6. Created a search bar and added search logic
                   7. Added validation for register, login and create
+                  8. Created edit and validation for it
 
 Still in progress:
 
-                  1. Calendar and edit function
                   2. Style that is satisfying
