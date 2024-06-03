@@ -19,7 +19,24 @@
                 <label for="deadline" class="text-gray-500 text-sm font-semibold">Deadline:</label>
                 <input type="date" id="deadline" name="deadline" class="border-gray-200 border rounded py-2 px-4 w-full" value="<?= htmlspecialchars($taskDetails->deadline ?? '', ENT_QUOTES, 'UTF-8') ?>">
             </div>
-            <button type="submit" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Update Task</button>
+            
+            <button type="submit" class="cssbuttons-io-button">
+ Update task
+  <div class="icon">
+    <svg
+      height="24"
+      width="24"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M0 0h24v24H0z" fill="none"></path>
+      <path
+        d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+</button>
         </form>
     </div>
 </div>

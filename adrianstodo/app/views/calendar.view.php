@@ -47,8 +47,6 @@ require "../app/views/components/header.php";
                         ?>
                         <li class="mb-4">
                           <h3 class="font-semibold"><?= htmlspecialchars($task->title) ?></h3>
-                          <p class="text-gray-600 mt-2"><?= htmlspecialchars($task->description) ?></p>
-                          <p class="text-gray-600 mt-2">Deadline: <?= htmlspecialchars($task->deadline) ?></p>
                           <!-- Display priority as star emojis -->
                           <p class="text-gray-600 mt-2">Priority:
                             <?= str_repeat('⭐️', $task->priority) ?>
@@ -57,7 +55,7 @@ require "../app/views/components/header.php";
                             <a href="/show?id=<?= $task->id ?>" class="text-blue-600 hover:underline">Show</a>
                             <form action="/delete" method="POST">
                               <input type="hidden" name="id" value="<?= $task->id ?>">
-                              <button type="submit" class="text-red-600 hover:underline">Delete</button>
+                              
                             </form>
                           </div>
                         </li>
