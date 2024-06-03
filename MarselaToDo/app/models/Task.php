@@ -67,8 +67,9 @@ class TaskModel {
         return $this->db->execute();
     }
 
-    public function getTasksSortedByPriority() {
-        $this->db->query('SELECT * FROM tasks ORDER BY priority DESC');
+    public function getTasksByUserIdSorted($user_id) {
+        $this->db->query('SELECT * FROM tasks WHERE user_id = :user_id ORDER BY priority DESC');
+        $this->db->bind(':user_id', $user_id);
         return $this->db->resultSet();
     }
 }

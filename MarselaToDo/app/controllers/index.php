@@ -1,7 +1,5 @@
 <?php
 
-auth();
-
 require "../app/models/Task.php";
 require "../app/models/Search.php";
 
@@ -11,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $taskModel = new TaskModel();
-$tasks = $taskModel->getTasksSortedByPriority(); // Change this line to get tasks sorted by priority
+$tasks = $taskModel->getTasksByUserIdSorted($_SESSION['user_id']); // Modified method call to get sorted tasks
 
 if(isset($_GET["query"]) && !empty(trim($_GET["query"]))) {
     $searchModel = new SearchModel();
