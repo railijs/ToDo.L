@@ -18,7 +18,7 @@ What has been done:
                   5. Added a create function for tasks and a view for diplaying them(Marsels Strikaitis)
                   6. Created a show for viewing one task and added a delete function(Railijs Didzis Grieznis)
                   7. Added when you are loged in you only see the tasks you have created(Marsels Strikaitis)
-                  8. Created a search bar(Marsels Strikaitis)
+                  8. Created a search bar(Jānis Mārtiņš Bramanis, Marsels Strikaitis)
                   9. Created edit(Railijs Didzis Grieznis, Jānis Mārtiņš Bramanis)
                   10. Created all Validation and logic(Marsels Strikaitis)
                   11. Created callendar(Railijs Didzis Grieznis, Adriāns Raitums)
