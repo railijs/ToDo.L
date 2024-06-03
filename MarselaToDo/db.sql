@@ -21,3 +21,9 @@ completed BOOLEAN NOT NULL DEFAULT false,
 FOREIGN KEY (user_id) REFERENCES users(id)
 );
 */
+
+
+/*
+ALTER TABLE tasks
+ADD COLUMN priority INT NOT NULL;
+*/

@@ -35,10 +35,7 @@ if(isset($_GET['query'])) {
             <input type="text" name="query" placeholder="Search for tasks..." class="border border-gray-300 rounded-md px-4 py-2 w-full mr-2" value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
             <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-md">Search</button>
         </form>
-<<<<<<< HEAD
-=======
         
->>>>>>> b7455c5c1e91e81b1ef482d6540d1b0e78629759
 
         <!-- Display tasks -->
         <?php if (isset($searchResults) && !empty($searchResults)) { ?>
@@ -62,12 +59,8 @@ if(isset($_GET['query'])) {
                             <form action="/delete" method="POST">
                                 <input type="hidden" name="id" value="<?= $task->id ?>">
                                 <button type="submit" class="appearance-none bg-white border-none rounded-full shadow-inner text-black px-4 py-2 text-lg font-semibold transition duration-150 ease-in-out hover:bg-yellow-400 hover:text-black">Delete</button>
-<<<<<<< HEAD
-                            </form>
-=======
                               </form>
                               <a href="/edit?task_id=<?= $task->id ?>" class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded transition-all duration-10 focus:outline-none focus:bg-green-800">Edit</a>
->>>>>>> b7455c5c1e91e81b1ef482d6540d1b0e78629759
                         </div>
                     </li>
                 <?php } ?>
