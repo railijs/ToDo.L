@@ -20,5 +20,5 @@ What has been done:
                   7. Created a search bar(Marsels Strikaitis)
                   8. Created edit(Jānis Mārtiņš Bramanis)
                   9. Created all Validation and logic(Marsels Strikaitis)
-                  10. Created callendar(Adriāns Raitums)
+                  10. Created callendar(Railijs Didzis Grieznis, Adriāns Raitums)
                   11. Styled everything(All of us)
