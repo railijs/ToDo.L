@@ -9,4 +9,5 @@ return [
     "/show" => "../app/controllers/show.php",
     "/delete" => "../app/controllers/delete.php",
     "/edit" => "../app/controllers/edit.php",
+    "/calendar" => "../app/controllers/calendar.php",
 ];

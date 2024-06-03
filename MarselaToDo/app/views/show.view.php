@@ -10,6 +10,7 @@
             <!-- Display priority as star emojis -->
             <p class="text-gray-700 mb-2">Priority: <?= str_repeat('⭐️', $task->priority); ?></p>
             <a href="/" class="text-blue-600 hover:underline">Back to Tasks</a>
+            <a href="/calendar" class="text-blue-600 hover:underline ml-5">Back to Calendar</a>
         <?php else: ?>
             <h2 class="text-2xl font-semibold mb-4">Task not found</h2>
         <?php endif; ?>
