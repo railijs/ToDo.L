@@ -58,4 +58,3 @@ $tasks = $taskModel->getTasksByUserId($_SESSION['user_id']);
 
 $title = "Create a task";
 require "../app/views/create.view.php";
-?>

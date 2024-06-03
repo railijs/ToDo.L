@@ -13,3 +13,4 @@ if (isset($_GET['id'])) {
 
 $title = "Show";
 require "../app/views/show.view.php";
+require "../public/css/style.css";
