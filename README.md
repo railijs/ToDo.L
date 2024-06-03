@@ -16,9 +16,11 @@ What has been done:
                   3. Added a create function for tasks and a view for diplaying them
                   4. Created a show for viewing one task and added a delete function
                   5. Added when you are loged in you only see the tasks you have created
-                  6. Created a search bar
+                  6. Created a search bar and search bar logic
+                  7. Created edit
 
 Still in progress:
 
                   1. Calendar and edit function
                   2. Style that is satisfying
+                  3. Edit validation
